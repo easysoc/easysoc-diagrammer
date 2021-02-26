@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.7.2'
+//    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+}
+
+group 'org.easysoc'
+version pluginVersion
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.antlr:antlr4-runtime:4.8'
+    implementation 'org.antlr:antlr4-intellij-adaptor:0.1'
+
+    implementation 'org.eclipse.sprotty:org.eclipse.sprotty:0.9.1'
+    implementation 'org.eclipse.elk:org.eclipse.elk.graph.text:0.7.1'
+    implementation 'org.eclipse.elk:org.eclipse.elk.alg.layered:0.7.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    // version and localPath should not be specified at the same time
+    // The path to locally installed IDE distribution that should be used as a dependency.
+    localPath "/home/itviewer/Downloads/software/chip"
+
+    // https://blog.jetbrains.com/platform/2019/06/java-functionality-extracted-as-a-plugin/
+    // plugins 'PsiViewer:201.6251.22-EAP-SNAPSHOT.3'
+    downloadSources false
+}
+
+runIde {
+    // https://bintray.com/jetbrains/intellij-jbr/jbrsdk11-linux-x64#files
+    jbrVersion "11_0_9_1b1145.77"
+//    ideDirectory "/home/itviewer/Downloads/software/chip"
+    jvmArgs '-Didea.platform.prefix=Chip'
+    //for jbr11
+    jvmArgs '--add-exports=java.base/jdk.internal.vm=ALL-UNNAMED','-Djdk.module.illegalAccess.silent=true'
+}
+
+patchPluginXml {
+    sinceBuild "203"
+    untilBuild "211.*"
+}
+
+publishPlugin {
+    token = System.getenv("PublishToken")
+}
+
+// https://docs.gradle.org/current/userguide/working_with_files.html
+task deployLauncher(type: Copy) {
+    from "src/main/webapp"
+    into "${runIde.pluginsDirectory}/${project.name}/webapp"
+}
+// buildPlugin and runIde task depend on prepareSandbox
+prepareSandbox.finalizedBy(deployLauncher)
+
+buildSearchableOptions.onlyIf { false }
+jarSearchableOptions.onlyIf { false }
+
+//prepareSandbox.onlyIf { false }
