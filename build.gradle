@@ -26,7 +26,7 @@ dependencies {
 intellij {
     // version and localPath should not be specified at the same time
     // The path to locally installed IDE distribution that should be used as a dependency.
-    localPath "/home/itviewer/Downloads/software/chip"
+    localPath "/home/itviewer/Downloads/software/idea-IC"
 
     // https://blog.jetbrains.com/platform/2019/06/java-functionality-extracted-as-a-plugin/
     // plugins 'PsiViewer:201.6251.22-EAP-SNAPSHOT.3'
