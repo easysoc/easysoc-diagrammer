@@ -2,6 +2,10 @@
 
 This project can layout and diagram [ELK Graph](https://www.eclipse.org/elk/documentation/tooldevelopers/graphdatastructure.html) files emitted by  [layered-firrtl](https://github.com/easysoc/layered-firrtl) to visualize Chisel generated Firrtl circuits.
 
+**Note1:** This project is suitable for viewing the connection relationship between circuit modules at a **high** level. If a module is too detailed, such as containing thousands of primitive operations, it is meaningless to visualize such a module, and it will take a lot of time and resources to render the graph.
+
+**Note2:** In addition to layout the graph through various [algorithms](https://www.eclipse.org/elk/reference/algorithms.html), the generated graph file can be consumed by [ELK](https://search.maven.org/artifact/org.eclipse.elk/org.eclipse.elk.graph.text/0.7.1/eclipse-plugin) to create a corresponding graph [data structure](https://www.eclipse.org/elk/documentation/tooldevelopers/graphdatastructure.html), and circuit analysis can be performed based on the graph.
+
 ![](./images/diagrammer.png)
 
 ## Features
