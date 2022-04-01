@@ -12,6 +12,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.messages.MessageDialog;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.ui.jcef.JBCefBrowser;
+import com.intellij.ui.jcef.JBCefBrowserBase;
 import com.intellij.ui.jcef.JBCefJSQuery;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -45,13 +46,12 @@ public class GraphBrowser {
     private String currentGraphName;
     private boolean initialized = false;
 
-    private JComponent browserComponent;
     private JPanel rootPanel;
-    private JComponent toolBar;
+    private ActionToolbar toolBar;
     private JLabel navigator;
     private DefaultActionGroup actionGroup;
 
-    private JBCefBrowser jbBrowser;
+    private JBCefBrowserBase jbBrowser;
     private CefBrowser browser;
 
     public GraphBrowser(String graphFile, GraphViewer parent) {
@@ -68,13 +68,13 @@ public class GraphBrowser {
 
         rootPanel = new JPanel();
         rootPanel.setLayout(new GridLayoutManager(2, 5, new Insets(0, 0, 0, 0), -1, -1, false, false));
-        rootPanel.add(browserComponent, new GridConstraints(1, 0, 1, 5, 0, 3, 3, 3, (Dimension)null, (Dimension)null, (Dimension)null));
+        rootPanel.add(jbBrowser.getComponent(), new GridConstraints(1, 0, 1, 5, 0, 3, 3, 3, (Dimension)null, (Dimension)null, (Dimension)null));
 
         JPanel var3 = new JPanel();
         var3.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1, false, false));
         rootPanel.add(var3, new GridConstraints(0, 0, 1, 4, 1, 1, 3, 0, (Dimension)null, (Dimension)null, (Dimension)null));
 
-        var3.add(toolBar, new GridConstraints(0, 0, 1, 1, 8, 0, 6, 0, (Dimension)null, new Dimension(-1, 20), (Dimension)null));
+        var3.add(toolBar.getComponent(), new GridConstraints(0, 0, 1, 1, 8, 0, 6, 0, (Dimension)null, new Dimension(-1, 20), (Dimension)null));
         var3.add(navigator, new GridConstraints(0, 1, 1, 1, 8, 0, 3, 0, (Dimension)null, (Dimension)null, (Dimension)null));
         Spacer var6 = new Spacer();
         rootPanel.add(var6, new GridConstraints(0, 4, 1, 1, 0, 1, 6, 1, (Dimension)null, (Dimension)null, (Dimension)null));
@@ -136,8 +136,8 @@ public class GraphBrowser {
             actionGroup.add(new ToolbarLabelAction(){{getTemplatePresentation().setText("Hierarchical:");}});
         }
 
-        toolBar = actionManager.createActionToolbar(ActionPlaces.TOOLBAR, actionGroup, true).getComponent();
-        browserComponent = jbBrowser.getComponent();
+        toolBar = actionManager.createActionToolbar(ActionPlaces.TOOLBAR, actionGroup, true);
+        toolBar.setTargetComponent(rootPanel);
     }
 
     private void initBrowser() {
@@ -300,8 +300,7 @@ public class GraphBrowser {
 
     private String getStartUrl() {
 //        return "file://" + "/media/itviewer/linux/easysoc/easysoc-diagrammer/src/main/webapp/index.html";
-        String pluginDir = PathManager.getPluginsPath();
-        return "file://" + pluginDir + "/easysoc-diagrammer/webapp/index.html";
+        return "file://" + PathManager.getPluginsPath() + "/easysoc-diagrammer/webapp/index.html";
     }
 
     public void reload() {

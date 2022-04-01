@@ -4,9 +4,7 @@
     <vendor url="https://www.easysoc.org">EasySoC</vendor>
     <change-notes><![CDATA[
         <ul>
-            <li>Free and open source to everyone</li>
-            <li>Support layout, rendering, display ELK Graph</li>
-            <li>Support syntax highlighting for graph file</li>
+            <li>Support IntelliJ 2021.3</li>
         </ul>
     ]]></change-notes>
     <description><![CDATA[
@@ -15,8 +13,6 @@
     Just right click on the .graph file, select HDL->Rendering the Graph Interactively.
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
     <depends>org.easysoc.chisel</depends>
 
@@ -35,9 +31,6 @@
 <!--            <separator/>-->
             <action id="ElkGraphAction" class="org.easysoc.plugins.diagrammer.actions.ElkGraphAction"
                     text="Rendering the Graph Interactively" description="Rendering the ELK Graph to an interactive diagram">
-            </action>
-            <action id="OpenBrowserAction" class="org.easysoc.plugins.diagrammer.actions.OpenBrowserAction"
-                    text="Rendering the Graph In External Browser" description="Rendering the ELK graph in external browser">
             </action>
             <add-to-group group-id="HDL"/>
         </group>

@@ -1,7 +1,5 @@
 ## EasySoC Diagrammer
 
-This project can layout and diagram [ELK Graph](https://www.eclipse.org/elk/documentation/tooldevelopers/graphdatastructure.html) files emitted by  [layered-firrtl](https://github.com/easysoc/layered-firrtl) to visualize Chisel generated Firrtl circuits.
-
 **Note1:** This project is suitable for viewing the connection relationship between circuit modules at a **high** level. If a module is too detailed, such as containing thousands of primitive operations, it is meaningless to visualize such a module, and it will take a lot of time and resources to render the graph.
 
 **Note2:** In addition to layout the graph through various [algorithms](https://www.eclipse.org/elk/reference/algorithms.html), the generated graph file can be consumed by [ELK](https://search.maven.org/artifact/org.eclipse.elk/org.eclipse.elk.graph.text/0.7.1/eclipse-plugin) to create a corresponding graph [data structure](https://www.eclipse.org/elk/documentation/tooldevelopers/graphdatastructure.html), and circuit analysis can be performed based on the graph.
@@ -18,15 +16,11 @@ This project can layout and diagram [ELK Graph](https://www.eclipse.org/elk/docu
 - Export diagram to SVG
 - Highlight selected elements
 
-## Install
-
-https://plugins.jetbrains.com/plugin/16255-easysoc-diagrammer
-
 ## FAQs
 
 1. How to view the graph file
 
-    After generating graph files by [layered-firrtl](https://github.com/easysoc/layered-firrtl), when you open a `.graph` file or right-click on it, menu 
+    After generating graph files by [easysoc-firrtl](https://github.com/easysoc/easysoc-firrtl), when you open a `.graph` file or right-click on it, menu 
 
     `HDL->Rendering the Graph Interactively` becomes available. 
 
